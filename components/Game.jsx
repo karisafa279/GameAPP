@@ -60,7 +60,15 @@ export default Game = ({ randomNumbersCount, initialSeconds }) => {
     const playAgainButton = playAgain();
 
     const reloadGame = () => {
-        setRemainingSeconds(initialSeconds);
+        clearInterval(intervalId.current);
+        const numbers = Array.from({ length: randomNumbersCount }).map(() => 1 + Math.floor(10 * Math.random()));
+        const target = numbers.slice(0, randomNumbersCount -2).reduce( (acc, cur) => acc + cur, 0);
+
+        setRandomNumbers(numbers);
+        setTarget(target);
+
+        
+
     }
     
     
@@ -80,7 +88,7 @@ export default Game = ({ randomNumbersCount, initialSeconds }) => {
             </View>
         </View>
         
-    );
+    )
 };
 
 const styles = StyleSheet.create({
