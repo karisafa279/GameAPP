@@ -19,6 +19,7 @@ export default Game = ({ randomNumbersCount, initialSeconds }) => {
         const target = numbers.slice(0, randomNumbersCount -2).reduce( (acc, cur) => acc + cur, 0);
 
         setRandomNumbers(numbers);
+        numbers.sort(() => Math.random()- 0.5);
         setTarget(target);
 
         intervalId.current = setInterval(() => setRemainingSeconds(seconds => seconds -1), 1000);
@@ -60,18 +61,23 @@ export default Game = ({ randomNumbersCount, initialSeconds }) => {
     const playAgainButton = playAgain();
 
     const reloadGame = () => {
-        clearInterval(intervalId.current);
+
+        setGameStatus('PLAYING');
+        setSelectedNumbers([]);
+
         const numbers = Array.from({ length: randomNumbersCount }).map(() => 1 + Math.floor(10 * Math.random()));
         const target = numbers.slice(0, randomNumbersCount -2).reduce( (acc, cur) => acc + cur, 0);
 
         setRandomNumbers(numbers);
+        numbers.sort(() => Math.random()- 0.5);
         setTarget(target);
 
-        
+        setRemainingSeconds(initialSeconds);
+        intervalId.current = setInterval(() => setRemainingSeconds(seconds => seconds -1), 1000);
+        return () => clearInterval(intervalId.current);
+    
 
     }
-    
-    
 
     return (
         <View>

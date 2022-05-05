@@ -12,7 +12,6 @@ export default Number = ({ id, number, isSelected, onSelected }) => {
         <TouchableOpacity onPress={handlePress}>
             <Text style={[styles.random, isSelected && styles.selected]}>{number}</Text>
         </TouchableOpacity>
-
     )
 };
 
